@@ -7,9 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import cz.trask.fakesenderws.CreateUserRequest;
-import cz.trask.fakesenderws.sender.UserEmailExistsException;
-
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
