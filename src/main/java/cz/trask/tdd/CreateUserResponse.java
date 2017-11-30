@@ -1,7 +1,10 @@
 package cz.trask.tdd;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CreateUserResponse {
 
+	@JsonProperty("status")
 	private CreateUserResponseStatus createUserResponseStatus;
 	
 	public CreateUserResponse() {
