@@ -42,7 +42,7 @@ public class UserControllerIT {
 public class UserController {
 
 	@RequestMapping(path="/users", method = RequestMethod.POST)
-	public void sendEmail(@RequestBody @Valid CreateUserRequest createUserRequest, BindingResult bindingResult) {
+	public CreateUserResponse sendEmail(@RequestBody @Valid CreateUserRequest createUserRequest, BindingResult bindingResult) {
 
 	}
 	
