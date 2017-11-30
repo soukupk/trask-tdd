@@ -23,7 +23,11 @@ public class UserController {
 			return new CreateUserResponse(CreateUserResponseStatus.INVALID_INPUT);
 		}
 		
-		userService.createUser(createUserRequest);
+		try {
+			userService.createUser(createUserRequest);
+		} catch (UserEmailExistsException e) {
+			return new CreateUserResponse(CreateUserResponseStatus.INVALID_INPUT);
+		}
 		
 		return new CreateUserResponse(CreateUserResponseStatus.OK);
 	}

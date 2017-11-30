@@ -20,7 +20,7 @@ public class UserServiceTest {
 	UserService userService;
 	
 	@Test
-	public void testCreateUser_shouldSaveUserSettings_withGoogleFavoriteWebsite() {
+	public void testCreateUser_shouldSaveUserSettings_withGoogleFavoriteWebsite() throws UserEmailExistsException {
 		CreateUserRequest createUserRequest = new CreateUserRequest();
 		createUserRequest.setEmail("karel.soukup@trask.cz");
 		createUserRequest.setFirstname("Karel");

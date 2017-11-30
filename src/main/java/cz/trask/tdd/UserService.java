@@ -22,7 +22,11 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void createUser(CreateUserRequest createUserRequest) {
+	public void createUser(CreateUserRequest createUserRequest) throws UserEmailExistsException {
+		if(userRepository.findByEmail(createUserRequest.getEmail()) != null) {
+			throw new UserEmailExistsException();
+		}
+		
 		User user = mapUserFromCreateUserRequest(createUserRequest);		
 		UserSettings userSettings = createDefaultUserSettings(user);
 		
