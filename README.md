@@ -35,3 +35,16 @@ public class UserControllerIT {
 	}
 }
 ```
+## Rest template skeleton
+
+```
+@RestController
+public class UserController {
+
+	@RequestMapping(path="/users", method = RequestMethod.POST)
+	public void sendEmail(@RequestBody @Valid CreateUserRequest createUserRequest, BindingResult bindingResult) {
+
+	}
+	
+}
+```
