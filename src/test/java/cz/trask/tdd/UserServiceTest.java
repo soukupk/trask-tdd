@@ -11,13 +11,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UserServiceTest {
 
 	@Mock
+	UserRepository userRepository;
+	
+	@Mock
 	UserSettingsRepository userSettingsRepository;
 	
 	@InjectMocks
 	UserService userService;
 	
 	@Test
-	public void testCreateUser_shouldSaveUserSettings_withDefaultFavoriteWebsite() {
+	public void testCreateUser_shouldSaveUserSettings_withGoogleFavoriteWebsite() {
 		CreateUserRequest createUserRequest = new CreateUserRequest();
 		createUserRequest.setEmail("karel.soukup@trask.cz");
 		createUserRequest.setFirstname("Karel");
