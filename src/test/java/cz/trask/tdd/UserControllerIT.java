@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -58,6 +59,30 @@ public class UserControllerIT {
 		ObjectNode expectedCreateUserResponse = JsonNodeFactory.instance.objectNode();
 		expectedCreateUserResponse.put("status", "INVALID_INPUT");		
 		Assert.assertEquals(expectedCreateUserResponse, createUserResponse);		
+	}
+	
+	@Test
+	public void testGetUsers_shouldReturnUser_whenUserCreated() {
+		String email = "ksoukup@trask.cz";
+		String firstname = "Karel";
+		String surname = "Soukup";
+		
+		ObjectNode createUserRequest = JsonNodeFactory.instance.objectNode();
+		createUserRequest.put("email", email);
+		createUserRequest.put("firstname", firstname);
+		createUserRequest.put("surname", surname);
+		
+		restTemplate.postForObject("http://localhost:" + port + "/users", createUserRequest, ObjectNode.class);
+
+		ArrayNode getUsersResponse = restTemplate.getForObject("http://localhost:" + port + "/users", ArrayNode.class);
+
+		ArrayNode expectedGetUsersResponse = JsonNodeFactory.instance.arrayNode();
+		ObjectNode expectedUser = JsonNodeFactory.instance.objectNode();
+		expectedUser.put("email", email);
+		expectedUser.put("firstname", firstname);
+		expectedUser.put("surname", surname);
+		expectedGetUsersResponse.add(expectedUser);	
+		Assert.assertEquals(expectedGetUsersResponse, getUsersResponse);		
 	}
 	
 }
