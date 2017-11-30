@@ -1,5 +1,7 @@
 package cz.trask.tdd;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 public class UserController {
@@ -29,6 +30,11 @@ public class UserController {
 		
 		userRepository.save(user);
 		return new CreateUserResponse(CreateUserResponseStatus.OK);
+	}
+	
+	@RequestMapping(path="/users")
+	public List<User> getUsers() {
+		return userRepository.findAll();
 	}
 	
 }
