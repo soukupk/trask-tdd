@@ -7,11 +7,31 @@
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserControllerIT {
 
-	@LocalServerPort
+    @LocalServerPort
     private int port;
 	
-	@Autowired
+    @Autowired
     private TestRestTemplate restTemplate;
-	
+
+	@Test
+	public void testCreateUser_shouldReturnSuccessResponse_whenUserEmailIsValid() {
+		// příprava prostředí
+		String email = "ksoukup@trask.cz";
+		String firstname = "Karel";
+		String surname = "Soukup";
+		
+		ObjectNode createUserRequest = JsonNodeFactory.instance.objectNode();
+		createUserRequest.put("email", email);
+		createUserRequest.put("firstname", firstname);
+		createUserRequest.put("surname", surname);
+		
+		// provolání testované části		
+		ObjectNode createUserResponse = restTemplate.postForObject("http://localhost:" + port + "/users", createUserRequest, ObjectNode.class);
+		
+		// ověření
+		ObjectNode expectedCreateUserResponse = JsonNodeFactory.instance.objectNode();
+		expectedCreateUserResponse.put("status", "OK");		
+		Assert.assertEquals(expectedCreateUserResponse, createUserResponse);		
+	}
 }
 ```
