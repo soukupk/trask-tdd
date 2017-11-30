@@ -1,7 +1,10 @@
 package cz.trask.tdd;
 
+import org.hibernate.validator.constraints.Email;
+
 public class CreateUserRequest {
 
+	@Email
 	private String email;
 
 	private String firstname;

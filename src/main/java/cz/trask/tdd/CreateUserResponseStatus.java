@@ -2,6 +2,7 @@ package cz.trask.tdd;
 
 public enum CreateUserResponseStatus {
 
-	OK
+	OK,
+	INVALID_INPUT
 	
 }
