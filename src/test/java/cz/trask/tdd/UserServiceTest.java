@@ -7,6 +7,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import cz.trask.fakesenderws.CreateUserRequest;
+import cz.trask.fakesenderws.sender.UserEmailExistsException;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
@@ -38,6 +41,22 @@ public class UserServiceTest {
 		expectedUserSettings.setFavoriteWebsite("https://google.com");
 		
 		Mockito.verify(userSettingsRepository).save(expectedUserSettings);
+	}
+	
+	@Test(expected = UserEmailExistsException.class)
+	public void testCreateUser_shouldThrowUserEmailExistsException_whenUserAlreadyExists() throws UserEmailExistsException {
+		CreateUserRequest createFirstUserRequest = new CreateUserRequest();
+		createFirstUserRequest.setEmail("karel.soukup@trask.cz");
+		createFirstUserRequest.setFirstname("Karel");
+		createFirstUserRequest.setSurname("Soukup");
+		
+		CreateUserRequest createSecondUserRequestWithSameEmail = new CreateUserRequest();
+		createSecondUserRequestWithSameEmail.setEmail("karel.soukup@trask.cz");
+		createSecondUserRequestWithSameEmail.setFirstname("Karel");
+		createSecondUserRequestWithSameEmail.setSurname("Ota");
+		
+		userService.createUser(createFirstUserRequest);		
+		userService.createUser(createSecondUserRequestWithSameEmail);
 	}
 	
 }
