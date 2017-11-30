@@ -17,18 +17,17 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	UserService userService;
+	
 	@RequestMapping(path="/users", method = RequestMethod.POST)
 	public CreateUserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new CreateUserResponse(CreateUserResponseStatus.INVALID_INPUT);
 		}
 		
-		User user = new User();
-		user.setEmail(createUserRequest.getEmail());
-		user.setFirstname(createUserRequest.getFirstname());
-		user.setSurname(createUserRequest.getSurname());
+		userService.createUser(createUserRequest);
 		
-		userRepository.save(user);
 		return new CreateUserResponse(CreateUserResponseStatus.OK);
 	}
 	
