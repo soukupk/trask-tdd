@@ -1,5 +1,7 @@
 package cz.trask.tdd;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class UserService {
 		user.setSurname(createUserRequest.getSurname());
 		
 		userRepository.save(user);
+	}
+
+	public List<User> getAll() {
+		return userRepository.findAll();
 	}
 	
 }

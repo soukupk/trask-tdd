@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-
-	@Autowired
-	UserRepository userRepository;
 	
 	@Autowired
 	UserService userService;
@@ -33,7 +30,7 @@ public class UserController {
 	
 	@RequestMapping(path="/users")
 	public List<User> getUsers() {
-		return userRepository.findAll();
+		return userService.getAll();
 	}
 	
 }
