@@ -12,10 +12,13 @@ public class UserService {
 
 	private UserRepository userRepository;
 	
+	private UserSettingsRepository userSettingsRepository;
+	
 	@Autowired	
-	public UserService(UserRepository userRepository) {
+	public UserService(UserRepository userRepository, UserSettingsRepository userSettingsRepository) {
 		super();
 		this.userRepository = userRepository;
+		this.userSettingsRepository = userSettingsRepository;
 	}
 	
 	@Transactional
@@ -25,7 +28,12 @@ public class UserService {
 		user.setFirstname(createUserRequest.getFirstname());
 		user.setSurname(createUserRequest.getSurname());
 		
+		UserSettings userSettings = new UserSettings();
+		userSettings.setUser(user);
+		userSettings.setFavoriteWebsite("https://google.com");
+		
 		userRepository.save(user);
+		userSettingsRepository.save(userSettings);
 	}
 
 	public List<User> getAll() {
