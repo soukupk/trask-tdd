@@ -42,4 +42,22 @@ public class UserControllerIT {
 		Assert.assertEquals(expectedCreateUserResponse, createUserResponse);
 	}
 	
+	@Test
+	public void testCreateUser_shouldReturnsStatusInvalidInputResponse_whenUserEmailIsInvalid() {
+		String email = "@trask.cz";
+		String firstname = "Karel";
+		String surname = "Soukup";
+		
+		ObjectNode createUserRequest = JsonNodeFactory.instance.objectNode();
+		createUserRequest.put("email", email);
+		createUserRequest.put("firstname", firstname);
+		createUserRequest.put("surname", surname);
+		
+		ObjectNode createUserResponse = restTemplate.postForObject("http://localhost:" + port + "/users", createUserRequest, ObjectNode.class);
+		
+		ObjectNode expectedCreateUserResponse = JsonNodeFactory.instance.objectNode();
+		expectedCreateUserResponse.put("status", "INVALID_INPUT");		
+		Assert.assertEquals(expectedCreateUserResponse, createUserResponse);		
+	}
+	
 }
