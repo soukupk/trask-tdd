@@ -23,17 +23,26 @@ public class UserService {
 	
 	@Transactional
 	public void createUser(CreateUserRequest createUserRequest) {
+		User user = mapUserFromCreateUserRequest(createUserRequest);		
+		UserSettings userSettings = createDefaultUserSettings(user);
+		
+		userRepository.save(user);
+		userSettingsRepository.save(userSettings);
+	}
+
+	private UserSettings createDefaultUserSettings(User user) {
+		UserSettings userSettings = new UserSettings();
+		userSettings.setUser(user);
+		userSettings.setFavoriteWebsite("https://google.com");
+		return userSettings;
+	}
+
+	private User mapUserFromCreateUserRequest(CreateUserRequest createUserRequest) {
 		User user = new User();
 		user.setEmail(createUserRequest.getEmail());
 		user.setFirstname(createUserRequest.getFirstname());
 		user.setSurname(createUserRequest.getSurname());
-		
-		UserSettings userSettings = new UserSettings();
-		userSettings.setUser(user);
-		userSettings.setFavoriteWebsite("https://google.com");
-		
-		userRepository.save(user);
-		userSettingsRepository.save(userSettings);
+		return user;
 	}
 
 	public List<User> getAll() {
