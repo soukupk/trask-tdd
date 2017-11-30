@@ -1,7 +1,7 @@
 # trask-tdd
 
 ## Functional test skeleton
-
+'''
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserControllerIT {
@@ -13,3 +13,4 @@ public class UserControllerIT {
     private TestRestTemplate restTemplate;
 	
 }
+'''
