@@ -1,9 +1,11 @@
 package cz.trask.tdd;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -19,6 +21,9 @@ public class UserServiceTest {
 	
 	@InjectMocks
 	UserService userService;
+		
+	@Captor
+	private ArgumentCaptor<UserSettings> saveUserSettingsArgumentCaptor;
 	
 	@Test
 	public void testCreateUser_shouldSaveUserSettings_withGoogleFavoriteWebsite() throws UserEmailExistsException {
@@ -38,7 +43,13 @@ public class UserServiceTest {
 		expectedUserSettings.setUser(expectedUser);
 		expectedUserSettings.setFavoriteWebsite("https://google.com");
 		
-		Mockito.verify(userSettingsRepository).save(expectedUserSettings);
+		Mockito.verify(userSettingsRepository).save(saveUserSettingsArgumentCaptor.capture());
+		
+		UserSettings actualUserSettings = saveUserSettingsArgumentCaptor.getAllValues().get(0);
+		Assert.assertEquals(expectedUser.getEmail(), actualUserSettings.getUser().getEmail());
+		Assert.assertEquals(expectedUser.getFirstname(), actualUserSettings.getUser().getFirstname());
+		Assert.assertEquals(expectedUser.getSurname(), actualUserSettings.getUser().getSurname());
+		Assert.assertEquals(expectedUserSettings.getFavoriteWebsite(), actualUserSettings.getFavoriteWebsite());
 	}
 	
 	@Test(expected = UserEmailExistsException.class)
