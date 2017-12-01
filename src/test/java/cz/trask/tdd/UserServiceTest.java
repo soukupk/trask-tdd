@@ -46,10 +46,20 @@ public class UserServiceTest {
 		Mockito.verify(userSettingsRepository).save(saveUserSettingsArgumentCaptor.capture());
 		
 		UserSettings actualUserSettings = saveUserSettingsArgumentCaptor.getAllValues().get(0);
-		Assert.assertEquals(expectedUser.getEmail(), actualUserSettings.getUser().getEmail());
-		Assert.assertEquals(expectedUser.getFirstname(), actualUserSettings.getUser().getFirstname());
-		Assert.assertEquals(expectedUser.getSurname(), actualUserSettings.getUser().getSurname());
+		assertUserSettings(expectedUserSettings, actualUserSettings);
+	}
+
+	private void assertUserSettings(UserSettings expectedUserSettings, UserSettings actualUserSettings) {
+		User expectedUser = expectedUserSettings.getUser();
+		User actualUser = actualUserSettings.getUser();
+		assertUser(expectedUser, actualUser);
 		Assert.assertEquals(expectedUserSettings.getFavoriteWebsite(), actualUserSettings.getFavoriteWebsite());
+	}
+
+	private void assertUser(User expectedUser, User actualUser) {
+		Assert.assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+		Assert.assertEquals(expectedUser.getFirstname(), actualUser.getFirstname());
+		Assert.assertEquals(expectedUser.getSurname(), actualUser.getSurname());
 	}
 	
 	@Test(expected = UserEmailExistsException.class)
