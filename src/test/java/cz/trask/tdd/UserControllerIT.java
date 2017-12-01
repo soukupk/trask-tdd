@@ -8,6 +8,7 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Sql("classpath:deleteAll.sql")
 public class UserControllerIT {
 
 	@LocalServerPort
