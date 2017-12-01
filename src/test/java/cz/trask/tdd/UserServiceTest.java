@@ -5,16 +5,17 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
-	@Mock
-	UserRepository userRepository;
+	@Spy
+	UserRepository userRepository = new FakeUserRepository();
 	
-	@Mock
-	UserSettingsRepository userSettingsRepository;
+	@Spy
+	UserSettingsRepository userSettingsRepository = new FakeUserSettingsRepository();
 	
 	@InjectMocks
 	UserService userService;
