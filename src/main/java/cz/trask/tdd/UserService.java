@@ -1,5 +1,6 @@
 package cz.trask.tdd;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -50,7 +51,7 @@ public class UserService {
 	}
 
 	public List<User> getAll() {
-		return userRepository.findAll();
+		return Arrays.asList();
 	}
 	
 }

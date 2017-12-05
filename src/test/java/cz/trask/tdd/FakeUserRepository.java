@@ -34,4 +34,9 @@ public class FakeUserRepository extends FakeRepository<User> implements UserRepo
 		return result.get(0);
 	}
 
+	@Override
+	public List<UserExport> findAllForExport() {
+		return null;
+	}
+
 }

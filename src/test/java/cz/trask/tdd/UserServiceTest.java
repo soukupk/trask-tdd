@@ -24,7 +24,7 @@ public class UserServiceTest {
 		
 	@Captor
 	private ArgumentCaptor<UserSettings> saveUserSettingsArgumentCaptor;
-	
+
 	@Test
 	public void testCreateUser_shouldSaveUserSettings_withGoogleFavoriteWebsite() throws UserEmailExistsException {
 		CreateUserRequest createUserRequest = new CreateUserRequest();

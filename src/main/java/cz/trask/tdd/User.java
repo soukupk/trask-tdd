@@ -1,10 +1,10 @@
 package cz.trask.tdd;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 public class User {
@@ -18,6 +18,17 @@ public class User {
 	private String firstname;
 	
 	private String surname;
+
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	private List<UserEntry>  userEntries;
+
+	public List<UserEntry> getUserEntries() {
+		return userEntries;
+	}
+
+	public void setUserEntries(List<UserEntry> userEntries) {
+		this.userEntries = userEntries;
+	}
 
 	public Long getId() {
 		return id;
@@ -96,7 +107,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", firstname=" + firstname + ", surname=" + surname + "]";
+		return "User{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", firstname='" + firstname + '\'' +
+				", surname='" + surname + '\'' +
+				", userEntries=" + userEntries +
+				'}';
 	}
-
 }
